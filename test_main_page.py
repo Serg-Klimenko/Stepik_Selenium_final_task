@@ -1,13 +1,10 @@
 import time
-link = "http://selenium1py.pythonanywhere.com/"
-
-
-def go_to_login_page(browser):
-    """ Open login page """
-    login_link = browser.find_element_by_css_selector("#login_link")
-    login_link.click()
+from .pages.main_page import MainPage
 
 
 def test_guest_can_go_to_login_page(browser):
-    browser.get(link)
-    go_to_login_page(browser)
+    link = "http://selenium1py.pythonanywhere.com/"
+    # init Page Object, pass driver instance and url to the constructor
+    page = MainPage(browser, link)
+    page.open()  # open page in the browser
+    page.go_to_login_page()  # method page - move to the login page
