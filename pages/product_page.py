@@ -28,10 +28,18 @@ class ProductPage(BasePage):
         add_product_button = self.browser.find_element(*ProductPageLocators.ADD_BUTTON)
         add_product_button.click()
 
-    def name_of_cart_product_equal_added_product(self):
+    def name_of_cart_product_should_be_equal_added_product(self):
         assert self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_IN_BASKET).text == self.product_name, \
             "Product name in the basket not egual product name on the product page"
 
-    def cost_of_cart_product_equal_price_added_product(self):
+    def cost_of_cart_product_should_be_equal_price_added_product(self):
         assert self.browser.find_element(*ProductPageLocators.BASKET_COST).text == self.product_price, \
             "Product price in the basket not egual product price on the product page"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.PRODUCT_NAME_IN_BASKET), \
+            "Success message is presented, but should not be"
+
+    def should_be_disappeared(self):
+        assert self.is_disappeared(*ProductPageLocators.PRODUCT_NAME_IN_BASKET), \
+            "Element is presented, but should be disappeared"

@@ -3,6 +3,7 @@ import pytest
 from .pages.product_page import ProductPage
 
 
+@pytest.mark.skip
 @pytest.mark.parametrize("offer", ["0", "1", "2", "3", "4", "5", "6",
                                    pytest.param("bugged_link", marks=pytest.mark.xfail), "8", "9"])
 def test_guest_can_add_product_to_basket(browser, offer):
@@ -13,5 +14,32 @@ def test_guest_can_add_product_to_basket(browser, offer):
     page.open()
     page.add_product_to_cart()
     page.solve_quiz_and_get_code()
-    page.name_of_cart_product_equal_added_product()
-    page.cost_of_cart_product_equal_price_added_product()
+    page.name_of_cart_product_should_be_equal_added_product()
+    page.cost_of_cart_product_should_be_equal_price_added_product()
+
+
+# negative tests
+@pytest.mark.xfail
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+    page = ProductPage(browser, link)
+    page.open()
+    page.add_product_to_cart()
+    page.solve_quiz_and_get_code()
+    page.should_not_be_success_message()
+
+
+def test_guest_cant_see_success_message(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_not_be_success_message()
+
+@pytest.mark.xfail
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+    page = ProductPage(browser, link)
+    page.open()
+    page.add_product_to_cart()
+    page.solve_quiz_and_get_code()
+    page.should_be_disappeared()
