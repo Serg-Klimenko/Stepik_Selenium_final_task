@@ -10,8 +10,8 @@ class ProductPage(BasePage):
         self.product_name = ""
 
     def should_be_product_page(self):
-        self.name_of_cart_product_equal_added_product()
-        self.cost_of_cart_product_equal_price_added_product()
+        self.name_of_cart_product_should_be_equal_added_product()
+        self.cost_of_cart_product_should_be_equal_price_added_product()
         self.add_product_to_cart()
         self.get_product_name()
         self.get_product_price()
