@@ -1,9 +1,13 @@
 from selenium.webdriver.common.by import By
+# each locator consists two values: (how search, what search)
+
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
 
 
 class MainPageLocators():
-    # each locator consists two values: (how search, what search)
-    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    pass
 
 
 class LoginPageLocators():
