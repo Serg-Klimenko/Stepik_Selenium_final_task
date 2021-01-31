@@ -1,6 +1,7 @@
 # launch: pytest -v --tb=line --language=en test_product_page.py
 import pytest
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
 
 
 @pytest.mark.skip
@@ -27,6 +28,16 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page.add_product_to_cart()
     page.solve_quiz_and_get_code()
     page.should_not_be_success_message()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear"
+    page = ProductPage(browser, link)
+    page.open()
+    basket_page = BasketPage(browser, browser.current_url)
+    basket_page.go_to_basket_page()
+    basket_page.is_not_product_present()
+    basket_page.should_be_message_about_empty_basket()
 
 
 def test_guest_cant_see_success_message(browser):
